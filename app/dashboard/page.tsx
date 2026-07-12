@@ -28,7 +28,6 @@ export default function DashboardPage() {
   const [sourceTextInput, setSourceTextInput] = useState("");
   const [showGenerateForm, setShowGenerateForm] = useState(false);
 
-  const [generatingQuiz, setGeneratingQuiz] = useState(false);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -232,24 +231,7 @@ export default function DashboardPage() {
     }
   };
 
-  const handleGenerateQuiz = async () => {
-    if (!firebaseUser || !plan) return;
-    setGeneratingQuiz(true);
-    try {
-      const res = await fetch("/api/quiz/generate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId: firebaseUser.uid, planId: plan.id }),
-      });
-      const data = await res.json();
-      if (!data.success) throw new Error(data.error);
-      router.push(`/quiz/${data.quiz.id}`);
-    } catch (err: any) {
-      console.error("Failed to generate quiz:", err.message);
-    } finally {
-      setGeneratingQuiz(false);
-    }
-  };
+ 
 
   if (loading || planLoading) {
     return (
@@ -463,19 +445,12 @@ export default function DashboardPage() {
         )}
 
         {planFullyCompleted && (
-          <div className="mb-6 bg-[#22C55E]/10 border border-[#22C55E]/30 rounded-xl px-4 py-3 flex items-center justify-between">
-            <p className="text-sm text-[#1E3A5F]">
-              🎉 You've completed this plan!
-            </p>
-            <button
-              onClick={handleGenerateQuiz}
-              disabled={generatingQuiz}
-              className="bg-[#1E3A5F] hover:bg-[#3A7CA5] text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors disabled:opacity-50"
-            >
-              {generatingQuiz ? "Preparing test..." : "Take a test"}
-            </button>
-          </div>
-        )}
+  <div className="mb-6 bg-[#22C55E]/10 border border-[#22C55E]/30 rounded-xl px-4 py-3">
+    <p className="text-sm text-[#1E3A5F]">
+      🎉 You've completed this plan! Generate a new one to keep going.
+    </p>
+  </div>
+)}
 
         {planError && <p className="text-sm text-red-500 mb-4">{planError}</p>}
 
