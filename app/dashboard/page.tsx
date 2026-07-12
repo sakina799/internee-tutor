@@ -296,17 +296,16 @@ export default function DashboardPage() {
         </div>
 
         {/* Stat cards row */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
-          <div className="bg-white border border-[#BDE0FE] rounded-2xl p-6 flex items-center">
-            <div>
-              <p className="text-xs uppercase tracking-wide text-[#5B7A99] mb-2 font-body">
-                Current module
-              </p>
-              <p className="font-display text-lg text-[#1E3A5F]">
-                {userDoc?.currentModule ?? "Not started"}
-              </p>
-            </div>
-          </div>
+        <div className="bg-white border border-[#BDE0FE] rounded-2xl p-6 flex items-center">
+  <div>
+    <p className="text-xs uppercase tracking-wide text-[#5B7A99] mb-2 font-body">
+      Current module
+    </p>
+    <p className="font-display text-lg text-[#1E3A5F]">
+      {plan?.sourceLabel ?? userDoc?.currentModule ?? "Not started"}
+    </p>
+  </div>
+</div>
 
           <div className="bg-white border border-[#BDE0FE] rounded-2xl p-6">
             <p className="text-xs uppercase tracking-wide text-[#5B7A99] mb-2 font-body">
@@ -462,10 +461,9 @@ export default function DashboardPage() {
         {plan && !showGenerateForm && (
           <div>
             <p className="text-xs font-mono text-[#5B7A99] mb-6">
-              Version {plan.version} · Generated{" "}
-              {new Date(plan.generatedAt).toLocaleString()}
-              {plan.sourceLabel && <> · From: {plan.sourceLabel}</>}
-            </p>
+  Generated {new Date(plan.generatedAt).toLocaleString()}
+  {plan.sourceLabel && <> · Module: {plan.sourceLabel}</>}
+</p>
 
             <div className="space-y-5">
               {plan.modules.map((mod) => {
