@@ -68,13 +68,14 @@ Respond with ONLY valid JSON, no markdown, no code fences, using exactly this st
       // Mode: generate from a named subject, no material provided
       sourceType = "subject";
       sourceLabel = subject.trim();
-      prompt = `
-You are a curriculum designer for an intern training program (Internee.pk).
+      
+prompt = `
+You are a curriculum designer for Internee.pk's virtual internship program.
 
-Create a complete, well-structured lesson plan to teach the subject: "${subject.trim()}".
-Cover it comprehensively, from fundamentals to more advanced points, in 2-4 modules.
+Create a complete, well-structured lesson plan to guide an intern through the Internee.pk module: "${subject.trim()}".
+Cover it comprehensively, from fundamentals to more advanced points, in 2-4 modules, similar to how a real internship track would be structured with hands-on tasks.
 
-For each topic, include ONE short practice exercise (a question, small task, or coding challenge).
+For each topic, include ONE short practice exercise (a question, small task, or coding challenge) that mirrors the kind of task an intern would submit for review.
 
 Respond with ONLY valid JSON, no markdown, no code fences, using exactly this structure:
 {

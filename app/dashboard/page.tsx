@@ -8,7 +8,7 @@ import { auth, db } from "@/lib/firebase/client";
 import { UserDocument } from "@/lib/types/user";
 import { LessonPlan } from "@/lib/types/lessonPlan";
 import ProgressRing from "@/components/ProgressRing";
-
+import { INTERNEE_MODULES } from "@/lib/constants/modules";
 export default function DashboardPage() {
   const router = useRouter();
 
@@ -398,21 +398,26 @@ export default function DashboardPage() {
                   What do you want to study?
                 </p>
 
-                <input
-                  type="text"
-                  value={subjectInput}
-                  onChange={(e) => setSubjectInput(e.target.value)}
-                  placeholder="Subject or topic (e.g. React Hooks, SQL Joins)"
-                  className="w-full border border-[#BDE0FE] rounded-lg px-3 py-2 text-sm text-[#1E3A5F] mb-3 focus:outline-none focus:border-[#A2D2FF]"
-                />
+                <select
+  value={subjectInput}
+  onChange={(e) => setSubjectInput(e.target.value)}
+  className="w-full border border-[#BDE0FE] rounded-lg px-3 py-2 text-sm text-[#1E3A5F] mb-3 focus:outline-none focus:border-[#A2D2FF] bg-white"
+>
+  <option value="">Select an Internee.pk learning module...</option>
+  {INTERNEE_MODULES.map((mod) => (
+    <option key={mod} value={mod}>
+      {mod}
+    </option>
+  ))}
+</select>
 
                 <textarea
-                  value={sourceTextInput}
-                  onChange={(e) => setSourceTextInput(e.target.value)}
-                  placeholder="Optional: paste your study material here for a plan based exactly on this content..."
-                  rows={5}
-                  className="w-full border border-[#BDE0FE] rounded-lg px-3 py-2 text-sm text-[#1E3A5F] mb-3 focus:outline-none focus:border-[#A2D2FF]"
-                />
+  value={sourceTextInput}
+  onChange={(e) => setSourceTextInput(e.target.value)}
+  placeholder="Optional: paste a specific task or material from this module to focus on..."
+  rows={5}
+  className="w-full border border-[#BDE0FE] rounded-lg px-3 py-2 text-sm text-[#1E3A5F] mb-3 focus:outline-none focus:border-[#A2D2FF]"
+/>
 
                 <div className="flex items-center justify-between mb-4">
                   <label className="text-xs text-[#5B7A99] cursor-pointer">
