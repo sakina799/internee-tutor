@@ -192,7 +192,7 @@ Respond with ONLY valid JSON, no markdown, no code fences, using exactly this st
       userId,
       version: newVersion,
       modules,
-      basedOnWeakAreas: userData.weakAreas,
+      basedOnWeakAreas: userData.weakAreas.map((w) => w.topic),
       sourceType,
       sourceLabel,
       generatedAt: Date.now(),
